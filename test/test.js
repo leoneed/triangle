@@ -33,10 +33,11 @@ describe('Trianle tests', function() {
 		});
 
 		it('Check triangle types', function () {
-			expect(funcTriangle.bind(null, 2, 2, 3)).equal('equilateral');
-			expect(funcTriangle.bind(null, 3, 3, 4)).equal('isosceles');
-			expect(funcTriangle.bind(null, 2, 3, 4)).equal('scalene');
+			expect(funcTriangle(2, 2, 2)).equal('equilateral');
+			expect(funcTriangle(3, 3, 4)).equal('isosceles');
+			expect(funcTriangle(2, 3, 4)).equal('scalene');
 		});
+		
 	});
 
 });
