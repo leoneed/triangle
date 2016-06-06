@@ -1,2 +1,16 @@
 #!/usr/bin/env node
 
+var getTriangleType = require('./src/func_triangle.js');
+
+var args = process.argv.slice(2);
+
+var edges = args.map(function(arg) {
+						return parseFloat(arg);
+					});
+try {
+	var tringleType = getTriangleType.apply(null, edges);
+	console.log(tringleType);
+}
+catch (e) {
+	console.log(e);
+}
