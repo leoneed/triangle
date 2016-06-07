@@ -32,7 +32,14 @@ Triangle.prototype.__types__ = {
  * Implementation of Shape.setType
  */
 Triangle.prototype.setType = function(quantity) {
-	this.__type__ = this.__types__[quantity];
+    if (this.__types__[quantity]) {
+	   this.__type__ = this.__types__[quantity];
+    }
+    else {
+        throw 'Incorrect quantity';
+    }
+
+    return this.__type__;
 }
 
 module.exports = Triangle;

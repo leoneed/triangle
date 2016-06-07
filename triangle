@@ -1,14 +1,29 @@
 #!/usr/bin/env node
 
-var getTriangleType = require('./src/func_triangle.js');
+var tringleType;
+var FUNC_CALL = 2, OOP_CALL = 3;
+var paramsType = FUNC_CALL;
+var getTriangleTypeFunc = require('./src/func_triangle.js');
+var getTriangleTypeOop = require('./src/oop_triangle.js');
 
-var args = process.argv.slice(2);
+if (process.argv[2] === '--oop') {
+    paramsType = OOP_CALL;
+}
+
+var args = process.argv.slice(paramsType);
 
 var edges = args.map(function(arg) {
 						return parseFloat(arg);
 					});
+
 try {
-	var tringleType = getTriangleType.apply(null, edges);
+    if (paramsType === FUNC_CALL) {
+	   tringleType = getTriangleTypeFunc.apply(null, edges);
+    }
+    else if (paramsType === OOP_CALL) {
+        tringleType = getTriangleTypeOop(edges);
+    }
+    
 	console.log(tringleType);
 }
 catch (e) {

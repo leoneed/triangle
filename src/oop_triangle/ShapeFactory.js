@@ -1,7 +1,6 @@
 'use strict'
 
 var Shape = require('./Shape.js');
-var Line = require('./Line.js');
 var Triangle = require('./Triangle.js');
 var Quadrilateral = require('./Quadrilateral.js');
 var Polygon = require('./Polygon.js');
@@ -25,18 +24,9 @@ function ShapeFactory(edges) {
 ShapeFactory.createShape = function(edges) {
 	var shape;
 
-	if (!Array.isArray(edges))  {
-		throw new TypeError('Array expected');
-	}
+	ShapeFactory.checkEdges(edges);
 
 	switch (edges.length) {
-		case 0:
-			throw 'Can\'t create shape without edges';
-
-		case ShapeFactory.shapeTypes.LINE: 
-			shape = new Line(edges);
-			break;
-
 		case ShapeFactory.shapeTypes.TRIANGLE: 
 			shape = new Triangle(edges);
 			break;
@@ -51,6 +41,58 @@ ShapeFactory.createShape = function(edges) {
 	}
 
 	return shape;
+}
+
+/**
+ * Check data
+ *
+ * @param {Array} edges
+ */
+ShapeFactory.checkEdges = function(edges) {
+	var edgesLength,
+		maxEdge = 0,
+		sumEdges = 0;
+
+	if (!Array.isArray(edges))  {
+		throw new TypeError('Array expected');
+	}
+
+	edgesLength = edges.length;
+
+	if (edgesLength === 0) {
+		throw 'Can\'t create shape without edges';
+	}
+	else if (edgesLength < 3) {
+		throw 'This is not a closed shape';
+	}
+
+	edges.map(function(edge) {
+		if (typeof edge !== 'number') {
+			throw new TypeError('All arguments must be numbers');
+		}
+
+		if (isNaN(edge)) {
+			throw 'Edge can\'t be NaN';
+		}
+
+		if (!isFinite(edge)) {
+			throw 'Edge can\'t be Infinity';
+		}
+
+		if (edge <= 0) {
+			throw 'Edge can\'t be <= 0';
+		}
+
+		if (maxEdge < edge) {
+			maxEdge = edge;
+		}
+
+		sumEdges += edge;
+	});
+
+	if ((sumEdges - maxEdge) <= maxEdge) {
+		throw 'This is not a closed shape';
+	}
 }
 
 /**
@@ -82,7 +124,7 @@ ShapeFactory.getShapeType = function(shape) {
  * @param {Shape} shape
  * @return {number}
  */
-ShapeFactory.getEqualEdgesCount(shape) {
+ShapeFactory.getEqualEdgesCount = function(shape) {
 
 	if (!(shape instanceof Shape)) {
 		throw new TypeError('Shape expected');
@@ -112,7 +154,6 @@ ShapeFactory.getEqualEdgesCount(shape) {
  * values - number of shape edges
  */
 ShapeFactory.shapeTypes = {
-	LINE: 1,
 	TRIANGLE: 3,
 	QUADRILATERAL: 4,
 	POLYGON: Infinity
