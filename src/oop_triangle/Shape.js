@@ -6,9 +6,9 @@
  * @constructor
  */ 
 function Shape() {
-	if (!(this instanceof Shape)) {
-		throw 'Shape must be called as constructor';
-	}
+    if (!(this instanceof Shape)) {
+        throw 'Shape must be called as constructor';
+    }
 }
 
 /**
@@ -27,7 +27,7 @@ Shape.prototype.__edges__ = [];
  * @return {Array}
  */
 Shape.prototype.getEdges = function() {
-	return this.__edges__;
+    return this.__edges__;
 }
 
 
@@ -38,7 +38,7 @@ Shape.prototype.getEdges = function() {
  * @return {null} null if shape type is not set
  */
 Shape.prototype.getType = function() {
-	return this.__type__;
+    return this.__type__;
 }
 
 /**
@@ -48,7 +48,7 @@ Shape.prototype.getType = function() {
  * @return {string} Shape type
  */
 Shape.prototype.setType = function() {
-	throw 'setType should be implemented in inheritor';
+    throw 'setType should be implemented in inheritor';
 }
 
 module.exports = Shape;

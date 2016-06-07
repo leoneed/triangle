@@ -10,7 +10,7 @@ var Polygon = require('../src/oop_triangle/Polygon.js');
 
 describe('OOP implementation of triangle type determination', function () {
 
-	it('Check init edges', function () {
+    it('Check init edges', function () {
         expect(ShapeFactory.bind(null)).throw(TypeError, 'Array expected');
         expect(ShapeFactory.bind(null, null)).throw(TypeError, 'Array expected');
         expect(ShapeFactory.bind(null, arguments)).throw(TypeError, 'Array expected');
@@ -83,5 +83,5 @@ describe('OOP implementation of triangle type determination', function () {
         expect(ShapeFactory.getShapeType(ShapeFactory([3, 3, 4]))).equal('isosceles');
         expect(ShapeFactory.getShapeType(ShapeFactory([2, 3, 4]))).equal('scalene');
     });
-	
+    
 });

@@ -10,11 +10,11 @@ var Shape = require('./Shape.js');
  * @return {Shape} New shape
  */ 
 function Triangle(edges) {
-	if (!(this instanceof Triangle)) {
-		throw 'Triangle must be called as constructor';
-	}
+    if (!(this instanceof Triangle)) {
+        throw 'Triangle must be called as constructor';
+    }
 
-	this.__edges__ = edges;
+    this.__edges__ = edges;
 }
 
 Triangle.prototype = new Shape();
@@ -23,9 +23,9 @@ Triangle.prototype = new Shape();
  * @private shape types
  */
 Triangle.prototype.__types__ = {
-	1: 'scalene',
-	2: 'isosceles',
-	3: 'equilateral'
+    1: 'scalene',
+    2: 'isosceles',
+    3: 'equilateral'
 };
 
 /**
@@ -33,7 +33,7 @@ Triangle.prototype.__types__ = {
  */
 Triangle.prototype.setType = function(quantity) {
     if (this.__types__[quantity]) {
-	   this.__type__ = this.__types__[quantity];
+       this.__type__ = this.__types__[quantity];
     }
     else {
         throw 'Incorrect quantity';

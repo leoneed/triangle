@@ -13,19 +13,19 @@ if (process.argv[2] === '--oop') {
 var args = process.argv.slice(paramsType);
 
 var edges = args.map(function(arg) {
-						return parseFloat(arg);
-					});
+                        return parseFloat(arg);
+                    });
 
 try {
     if (paramsType === FUNC_CALL) {
-	   tringleType = getTriangleTypeFunc.apply(null, edges);
+       tringleType = getTriangleTypeFunc.apply(null, edges);
     }
     else if (paramsType === OOP_CALL) {
         tringleType = getTriangleTypeOop(edges);
     }
     
-	console.log(tringleType);
+    console.log(tringleType);
 }
 catch (e) {
-	console.log(e);
+    console.log(e);
 }

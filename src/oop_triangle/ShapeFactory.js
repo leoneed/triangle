@@ -12,7 +12,7 @@ var Polygon = require('./Polygon.js');
  * @return {Shape} New shape
  */ 
 function ShapeFactory(edges) {
-	return ShapeFactory.createShape(edges);
+    return ShapeFactory.createShape(edges);
 }
 
 /**
@@ -22,25 +22,25 @@ function ShapeFactory(edges) {
  * @return {Shape} New shape
  */
 ShapeFactory.createShape = function(edges) {
-	var shape;
+    var shape;
 
-	ShapeFactory.checkEdges(edges);
+    ShapeFactory.checkEdges(edges);
 
-	switch (edges.length) {
-		case ShapeFactory.shapeTypes.TRIANGLE: 
-			shape = new Triangle(edges);
-			break;
+    switch (edges.length) {
+        case ShapeFactory.shapeTypes.TRIANGLE: 
+            shape = new Triangle(edges);
+            break;
 
-		case ShapeFactory.shapeTypes.QUADRILATERAL: 
-			shape = new Quadrilateral(edges);
-			break;
+        case ShapeFactory.shapeTypes.QUADRILATERAL: 
+            shape = new Quadrilateral(edges);
+            break;
 
-		default:
-			shape = new Polygon(edges);
-			break;
-	}
+        default:
+            shape = new Polygon(edges);
+            break;
+    }
 
-	return shape;
+    return shape;
 }
 
 /**
@@ -49,50 +49,50 @@ ShapeFactory.createShape = function(edges) {
  * @param {Array} edges
  */
 ShapeFactory.checkEdges = function(edges) {
-	var edgesLength,
-		maxEdge = 0,
-		sumEdges = 0;
+    var edgesLength,
+        maxEdge = 0,
+        sumEdges = 0;
 
-	if (!Array.isArray(edges))  {
-		throw new TypeError('Array expected');
-	}
+    if (!Array.isArray(edges))  {
+        throw new TypeError('Array expected');
+    }
 
-	edgesLength = edges.length;
+    edgesLength = edges.length;
 
-	if (edgesLength === 0) {
-		throw 'Can\'t create shape without edges';
-	}
-	else if (edgesLength < 3) {
-		throw 'This is not a closed shape';
-	}
+    if (edgesLength === 0) {
+        throw 'Can\'t create shape without edges';
+    }
+    else if (edgesLength < 3) {
+        throw 'This is not a closed shape';
+    }
 
-	edges.map(function(edge) {
-		if (typeof edge !== 'number') {
-			throw new TypeError('All arguments must be numbers');
-		}
+    edges.map(function(edge) {
+        if (typeof edge !== 'number') {
+            throw new TypeError('All arguments must be numbers');
+        }
 
-		if (isNaN(edge)) {
-			throw 'Edge can\'t be NaN';
-		}
+        if (isNaN(edge)) {
+            throw 'Edge can\'t be NaN';
+        }
 
-		if (!isFinite(edge)) {
-			throw 'Edge can\'t be Infinity';
-		}
+        if (!isFinite(edge)) {
+            throw 'Edge can\'t be Infinity';
+        }
 
-		if (edge <= 0) {
-			throw 'Edge can\'t be <= 0';
-		}
+        if (edge <= 0) {
+            throw 'Edge can\'t be <= 0';
+        }
 
-		if (maxEdge < edge) {
-			maxEdge = edge;
-		}
+        if (maxEdge < edge) {
+            maxEdge = edge;
+        }
 
-		sumEdges += edge;
-	});
+        sumEdges += edge;
+    });
 
-	if ((sumEdges - maxEdge) <= maxEdge) {
-		throw 'This is not a closed shape';
-	}
+    if ((sumEdges - maxEdge) <= maxEdge) {
+        throw 'This is not a closed shape';
+    }
 }
 
 /**
@@ -102,20 +102,20 @@ ShapeFactory.checkEdges = function(edges) {
  * @return {string} Shape type
  */
 ShapeFactory.getShapeType = function(shape) {
-	var shapeType;
+    var shapeType;
 
-	if (!(shape instanceof Shape)) {
-		throw new TypeError('Shape expected');
-	}
+    if (!(shape instanceof Shape)) {
+        throw new TypeError('Shape expected');
+    }
 
-	shapeType = shape.getType();
+    shapeType = shape.getType();
 
-	//compute shape type if type is not set yet
-	if (!shapeType) {
-		shapeType = shape.setType(ShapeFactory.getEqualEdgesCount(shape));
-	}
+    //compute shape type if type is not set yet
+    if (!shapeType) {
+        shapeType = shape.setType(ShapeFactory.getEqualEdgesCount(shape));
+    }
 
-	return shapeType;
+    return shapeType;
 }
 
 /**
@@ -126,27 +126,27 @@ ShapeFactory.getShapeType = function(shape) {
  */
 ShapeFactory.getEqualEdgesCount = function(shape) {
 
-	if (!(shape instanceof Shape)) {
-		throw new TypeError('Shape expected');
-	}
+    if (!(shape instanceof Shape)) {
+        throw new TypeError('Shape expected');
+    }
 
-	var edges = shape.getEdges();
-	var edgesCountObj = { 0: 0 };
-	var maxCountIndex = 0;
+    var edges = shape.getEdges();
+    var edgesCountObj = { 0: 0 };
+    var maxCountIndex = 0;
 
-	//find maximum of equal edges
-	edges.map(function(edge) {
-		if (!edgesCountObj[edge]) {
-			edgesCountObj[edge] = 0;
-		}
-		edgesCountObj[edge]++;
+    //find maximum of equal edges
+    edges.map(function(edge) {
+        if (!edgesCountObj[edge]) {
+            edgesCountObj[edge] = 0;
+        }
+        edgesCountObj[edge]++;
 
-		if (edgesCountObj[edge] > edgesCountObj[maxCountIndex]) {
-			maxCountIndex = edge;
-		}
-	});
+        if (edgesCountObj[edge] > edgesCountObj[maxCountIndex]) {
+            maxCountIndex = edge;
+        }
+    });
 
-	return edgesCountObj[maxCountIndex];
+    return edgesCountObj[maxCountIndex];
 }
 
 /*
@@ -154,9 +154,9 @@ ShapeFactory.getEqualEdgesCount = function(shape) {
  * values - number of shape edges
  */
 ShapeFactory.shapeTypes = {
-	TRIANGLE: 3,
-	QUADRILATERAL: 4,
-	POLYGON: Infinity
+    TRIANGLE: 3,
+    QUADRILATERAL: 4,
+    POLYGON: Infinity
 }
 
 module.exports = ShapeFactory;
