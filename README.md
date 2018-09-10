@@ -9,7 +9,8 @@
 `./triangle --oop EDGE_A EDGE_B EDGE_C` to check triangle by OOP code
 
 ####Example:
-````
+
+```
 ./triangle --oop 1 2 2
 isosceles
 ./triangle 2 2 2
